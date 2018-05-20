@@ -1,0 +1,46 @@
+---
+title: "ReceptLoss vignette"
+author: "Daniel Pique"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+Here we introduce the functionality of receptLoss. This package consists of 2 functions: one to identify and rank the genes that exhibit loss of expression in a subset of tumors. The other function is designed to visualize the distribution of a particular gene.
+
+We begin by simulating two gene expression data matrices, one from tumor and the other from normal tissue.
+```{r}
+library(receptLoss)
+library(tidyverse)
+exprMatrNml <- matrix(abs(rnorm(100, mean = 2)), nrow=10)
+exprMatrTum <- matrix(abs(rnorm(100)), nrow=10)
+geneNames <- paste0(letters[1:nrow(exprMatrNml)], 1:nrow(exprMatrNml))
+rownames(exprMatrNml) <- rownames(exprMatrTum) <- geneNames
+
+```
+
+Then, we set parameters, such as the threshold `nSdBelow` and the `minPropPerGroup`, or the minimum proportion of all tumor samples samples that should be within a group.
+```{r}
+nSdBelow <- 2
+minPropPerGroup <- .2
+rl <- receptLoss(exprMatrNml, exprMatrTum, nSdBelow, minPropPerGroup)
+head(rl)
+```
+
+Lastly, we take the top-ranked gene and plot its distribution.
+```{r}
+set2 <- RColorBrewer::brewer.pal(8, "Set2")
+clrs = set2[c(4:3)]
+plotReceptLoss(exprMatrNml, exprMatrTum, rl, geneName="g7", clrs=clrs)
+```
+
