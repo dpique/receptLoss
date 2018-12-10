@@ -99,7 +99,7 @@ plotReceptLoss <- function(exprMatrNml, exprMatrTum, rldf, geneName, clrs){
   tidyDf <- rbind(normal, tumor) %>%
     as_tibble() %>%
     rename(expr=".")
-  rldf.sub <- rldf["geneNm"== geneName,] #%>% filter(geneNm == geneName)
+  rldf.sub <- rldf %>% filter(geneNm == geneName)
   p1 <- ggplot(tidyDf, aes(x=expr, color=as.factor(type),
                            fill=as.factor(type),
                            group=as.factor(type))) +
