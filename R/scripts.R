@@ -94,10 +94,11 @@ receptLoss <- function(exprMatrNml, exprMatrTum, nSdBelow, minPropPerGroup){
 
 
 plotReceptLoss <- function(exprMatrNml, exprMatrTum, rldf, geneName, clrs){
-  normal <- exprMatrNml[geneName,]
-  tumor <- exprMatrTum[geneName,]
-  tidyDf <- data.frame(normal, tumor) %>%
-    gather(key = "type", value="expr")
+  normal <- assay(brca_n)[thrb, ] %>% data.frame() %>% mutate(type="normal")
+  tumor <- assay(brca)[thrb, ] %>% data.frame() %>% mutate(type="tumor")
+  tidyDf <- rbind(normal, tumor) %>%
+    as_tibble() %>%
+    rename(expr=".")
   rldf.sub <- rldf["geneNm"== geneName,] #%>% filter(geneNm == geneName)
   p1 <- ggplot(tidyDf, aes(x=expr, color=as.factor(type),
                            fill=as.factor(type),
