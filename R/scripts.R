@@ -107,7 +107,6 @@ plotReceptLoss <- function(exprMatrNml, exprMatrTum, rldf, geneName, clrs){
     geom_histogram(data=subset(tidyDf,type == "tumor"),
                    alpha=0.5, aes(y=..density..), binwidth = .2,
                    color=clrs[2], fill=clrs[2]) +
-    geom_rug(alpha=0.3, show.legend=FALSE) +
     scale_fill_manual(values=clrs) +
     scale_color_manual(values=clrs) +
     theme(axis.title=element_blank(),
@@ -117,14 +116,13 @@ plotReceptLoss <- function(exprMatrNml, exprMatrTum, rldf, geneName, clrs){
           legend.position="none",
           text = element_text(size=20, color="black"),
           plot.title=element_text(face="italic")) + #coord_fixed(ratio=15) +
-     xlim(c(-0.1, max(exprMatrTum, exprMatrNml))) +
-    #ylim(c(0,.63))+
+    xlim(c(-0.1, max(exprMatrTum$., exprMatrNml$.))) +
     ggtitle(geneName) +
     xlab(expression(Log[2] *"(TPM Reads)")) +
+    geom_vline(size=2, alpha=0.8, color=clrs[1], xintercept = rldf.sub$lowerBound) +
     stat_function(fun="dnorm", colour=clrs[1],
-                  args=list(mean=mean(normal),
-                            sd=sd(normal)), linetype="dashed", size=1.5) +
-    geom_vline(size=2, alpha=0.8, color=clrs[1], xintercept = rldf.sub$lowerBound)
+                  args=list(mean=mean(normal$.),
+                            sd=sd(normal$.)), linetype="dashed", size=1.5)
   print(p1)
 }
 #plotReceptLoss(exprMatrNml, exprMatrTum, rldf, geneName="g7")
