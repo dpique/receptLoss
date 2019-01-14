@@ -18,8 +18,9 @@ order as exprMatrNml.}
 \item{nSdBelow}{The number of SD below the mean of the adjacent normal tissue
 to set the boundary between tumor subgroups.}
 
-\item{minPropPerGroup}{The number of SD below the mean of the adjacent normal
-tissue to set the boundary between tumor subgroups.}
+\item{minPropPerGroup}{A value between 0-1 that represents the minimum
+proportion of samples that should be present in each of the two subgroups
+(defined by the boundary set by nSdBelow) for a particular gene.}
 }
 \description{
 This function allows you to identify genes with loss of expression

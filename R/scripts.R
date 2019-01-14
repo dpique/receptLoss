@@ -18,12 +18,13 @@ nSdBelowMean <- function(mn, sd, n){
 #'   is a gene, and each column is a patient or sample. Genes should be in same
 #'   order as exprMatrTum.
 #' @param exprMatrTum A matrix of expression values from tumor tissue. Each row
-#' is a gene, and each column is a patient or sample. Genes should be in same
-#' order as exprMatrNml.
+#'   is a gene, and each column is a patient or sample. Genes should be in same
+#'   order as exprMatrNml.
 #' @param nSdBelow The number of SD below the mean of the adjacent normal tissue
 #'   to set the boundary between tumor subgroups.
-#' @param minPropPerGroup The number of SD below the mean of the adjacent normal
-#'   tissue to set the boundary between tumor subgroups.
+#' @param minPropPerGroup A value between 0-1 that represents the minimum
+#' proportion of samples that should be present in each of the two subgroups
+#' (defined by the boundary set by nSdBelow) for a particular gene.
 #' @keywords gene expression, subgroups
 #' @importFrom magrittr "%>%"
 #' @import dplyr tidyr tidyverse stats
@@ -78,7 +79,7 @@ receptLoss <- function(exprMatrNml, exprMatrTum, nSdBelow, minPropPerGroup){
 #' @param clrs Vector of length 2 containing colors to use for plot
 #' @keywords gene expression, subgroups, visualization
 #' @importFrom magrittr "%>%"
-#' @import dplyr tidyr ggplot2 tidyverse stats
+#' @import dplyr tidyr ggplot2 tidyverse stats SummarizedExperiment
 #' @export
 #' @examples
 #' exprMatrNml <- matrix(abs(rnorm(100, mean = 2)), nrow=10)
@@ -92,10 +93,10 @@ receptLoss <- function(exprMatrNml, exprMatrTum, nSdBelow, minPropPerGroup){
 #' clrs = set2[c(4:3)]
 #' plotReceptLoss(exprMatrNml, exprMatrTum, rl, geneName="g7", clrs)
 
-
 plotReceptLoss <- function(exprMatrNml, exprMatrTum, rldf, geneName, clrs){
-  normal <- assay(exprMatrNml)[geneName, ] %>% data.frame() %>% mutate(type = "normal")
-  tumor <- assay(exprMatrTum)[geneName, ] %>% data.frame() %>% mutate(type = "tumor")
+
+  normal <- exprMatrNml[geneName, ] %>% data.frame() %>% mutate(type = "normal")
+  tumor <- exprMatrTum[geneName, ] %>% data.frame() %>% mutate(type = "tumor")
   tidyDf <- rbind(normal, tumor) %>% as_tibble() %>% rename(expr = ".")
   rldf.sub <- rldf[rldf[, "geneNm"] == geneName, ]
   p1 <- ggplot(tidyDf, aes(x = expr, color = as.factor(type),
@@ -108,7 +109,7 @@ plotReceptLoss <- function(exprMatrNml, exprMatrTum, rldf, geneName, clrs){
           axis.text.y = element_blank(), axis.ticks.y = element_blank(),
           axis.line.y = element_blank(), legend.position = "none",
           text = element_text(size = 20, color = "black"), plot.title = element_text(face = "italic")) +
-    xlim(c(-0.1, 0.2 + max(assay(exprMatrTum), assay(exprMatrNml)))) +
+    xlim(c(-0.1, 0.2 + max(exprMatrTum, exprMatrNml))) +
     ggtitle(geneName) +
     xlab(expression(Log[2] * "(TPM Reads)")) + geom_vline(size = 2,
                                                           alpha = 0.8, color = clrs[1], xintercept = rldf.sub$lowerBound) +

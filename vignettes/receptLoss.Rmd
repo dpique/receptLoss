@@ -22,7 +22,9 @@ We begin by simulating two gene expression data matrices, one from tumor and the
 ```{r}
 library(receptLoss)
 library(tidyverse)
-exprMatrNml <- matrix(abs(rnorm(100, mean = 2)), nrow=10)
+
+set.seed(100)
+exprMatrNml <- matrix(abs(rnorm(100, mean = 2)), nrow=10) 
 exprMatrTum <- matrix(abs(rnorm(100)), nrow=10)
 geneNames <- paste0(letters[1:nrow(exprMatrNml)], 1:nrow(exprMatrNml))
 rownames(exprMatrNml) <- rownames(exprMatrTum) <- geneNames
