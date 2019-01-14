@@ -94,52 +94,25 @@ receptLoss <- function(exprMatrNml, exprMatrTum, nSdBelow, minPropPerGroup){
 
 
 plotReceptLoss <- function(exprMatrNml, exprMatrTum, rldf, geneName, clrs){
-  normal <- assay(brca_n)[thrb, ] %>% data.frame() %>% mutate(type="normal")
-  tumor <- assay(brca)[thrb, ] %>% data.frame() %>% mutate(type="tumor")
-  tidyDf <- rbind(normal, tumor) %>%
-    as_tibble() %>%
-    rename(expr=".")
-  rldf.sub <- rldf[rldf[,"geneNm"] == geneName,]
-  p1 <- ggplot(tidyDf, aes(x=expr, color=as.factor(type),
-                           fill=as.factor(type),
-                           group=as.factor(type))) +
-    theme_classic() +
-    geom_histogram(data=subset(tidyDf,type == "tumor"),
-                   alpha=0.5, aes(y=..density..), binwidth = .2,
-                   color=clrs[2], fill=clrs[2]) +
-    scale_fill_manual(values=clrs) +
-    scale_color_manual(values=clrs) +
-    theme(axis.title=element_blank(),
-          axis.text.y=element_blank(),
-          axis.ticks.y=element_blank(),
-          axis.line.y=element_blank(),
-          legend.position="none",
-          text = element_text(size=20, color="black"),
-          plot.title=element_text(face="italic")) + #coord_fixed(ratio=15) +
-    xlim(c(-0.1, max(exprMatrTum$., exprMatrNml$.))) +
+  normal <- assay(exprMatrNml)[geneName, ] %>% data.frame() %>% mutate(type = "normal")
+  tumor <- assay(exprMatrTum)[geneName, ] %>% data.frame() %>% mutate(type = "tumor")
+  tidyDf <- rbind(normal, tumor) %>% as_tibble() %>% rename(expr = ".")
+  rldf.sub <- rldf[rldf[, "geneNm"] == geneName, ]
+  p1 <- ggplot(tidyDf, aes(x = expr, color = as.factor(type),
+                           fill = as.factor(type), group = as.factor(type))) + theme_classic() +
+    geom_histogram(data = subset(tidyDf, type == "tumor"),
+                   alpha = 0.5, aes(y = ..density..), binwidth = 0.2,
+                   color = clrs[2], fill = clrs[2]) +
+    scale_fill_manual(values = clrs) +
+    theme(axis.title = element_blank(),
+          axis.text.y = element_blank(), axis.ticks.y = element_blank(),
+          axis.line.y = element_blank(), legend.position = "none",
+          text = element_text(size = 20, color = "black"), plot.title = element_text(face = "italic")) +
+    xlim(c(-0.1, 0.2 + max(assay(exprMatrTum), assay(exprMatrNml)))) +
     ggtitle(geneName) +
-    xlab(expression(Log[2] *"(TPM Reads)")) +
-    geom_vline(size=2, alpha=0.8, color=clrs[1], xintercept = rldf.sub$lowerBound) +
-    stat_function(fun="dnorm", colour=clrs[1],
-                  args=list(mean=mean(normal$.),
-                            sd=sd(normal$.)), linetype="dashed", size=1.5)
+    xlab(expression(Log[2] * "(TPM Reads)")) + geom_vline(size = 2,
+                                                          alpha = 0.8, color = clrs[1], xintercept = rldf.sub$lowerBound) +
+    stat_function(fun = "dnorm", colour = clrs[1], args = list(mean = mean(normal$.),
+                                                               sd = sd(normal$.)), linetype = "dashed", size = 1.5)
   print(p1)
 }
-#plotReceptLoss(exprMatrNml, exprMatrTum, rldf, geneName="g7")
-
-#geneName = "e5"
-#set2 <- RColorBrewer::brewer.pal(8, "Set2")
-#clrs = set2[c(4:3)]
-
-#exprMatrNml <- matrix(abs(rnorm(100, mean = 2)), nrow=10)
-#exprMatrTum <- matrix(abs(rnorm(100)), nrow=10)
-#geneNames <- paste0(letters[1:nrow(exprMatrNml)], 1:nrow(exprMatrNml))
-#rownames(exprMatrNml) <- rownames(exprMatrTum) <- geneNames
-#nSdBelow <- 2
-#minPropPerGroup <- .2
-#rl <- receptLoss(exprMatrNml, exprMatrTum, nSdBelow, minPropPerGroup, geneNames)
-#head(rl)
-
-#library(tidyverse)
-
-#rldf <- receptLoss(exprMatrNml, exprMatrTum, nSdBelow, minPropPerGroup, geneNames)
