@@ -93,7 +93,7 @@ receptLoss <- function(exprMatrNml, exprMatrTum, nSdBelow, minPropPerGroup){
 #' clrs = set2[c(4:3)]
 #' plotReceptLoss(exprMatrNml, exprMatrTum, rl, geneName="g7", clrs)
 
-plotReceptLoss <- function(exprMatrNml, exprMatrTum, rldf, geneName, clrs){
+plotReceptLoss <- function(exprMatrNml, exprMatrTum, rldf, geneName, addToTitle="", clrs){
 
   normal <- exprMatrNml[geneName, ] %>% data.frame() %>% mutate(type = "normal")
   tumor <- exprMatrTum[geneName, ] %>% data.frame() %>% mutate(type = "tumor")
@@ -110,7 +110,7 @@ plotReceptLoss <- function(exprMatrNml, exprMatrTum, rldf, geneName, clrs){
           axis.line.y = element_blank(), legend.position = "none",
           text = element_text(size = 20, color = "black"), plot.title = element_text(face = "italic")) +
     xlim(c(-0.1, 0.2 + max(exprMatrTum, exprMatrNml))) +
-    ggtitle(geneName) +
+    ggtitle(paste0(geneName, addToTitle)) +
     xlab(expression(Log[2] * "(TPM Reads)")) + geom_vline(size = 2,
                                                           alpha = 0.8, color = clrs[1], xintercept = rldf.sub$lowerBound) +
     stat_function(fun = "dnorm", colour = clrs[1], args = list(mean = mean(normal$.),
