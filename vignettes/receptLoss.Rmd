@@ -12,14 +12,22 @@ vignette: >
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  warning=FALSE,
+  message=FALSE
 )
 ```
 
-Here we introduce the functionality of receptLoss. This package consists of 2 functions: one to identify and rank the genes that exhibit loss of expression in a subset of tumors. The other function is designed to visualize the distribution of a particular gene.
+receptLoss is an R package that detects potentially novel tumor suppressors using gene expression data from tumor and adjacent normal tissue. 
+
+receptLoss consists of 2 main functions:
+
+  - `receptLoss()` takes in 2 matrices of gene expression data, one from tumor and one from adjacent normal tissue. The output is a matrix with rows representing genes and columns representing summary statistics. The rows are sorted by the `deltaMu` statistic, which indicates the degree of separation between the two groups. Higher `deltaMu` values indicate tumor groups that are more clearly separated and more likely to constitute a true bimodal distribution.
+  
+  - `plotReceptLoss()` takes in the generates a histogram visualization of the distribution of a particular gene.
 
 We begin by simulating two gene expression data matrices, one from tumor and the other from normal tissue.
-```{r}
+```{r warning=FALSE, message=FALSE}
 library(receptLoss)
 library(tidyverse)
 
@@ -41,8 +49,14 @@ head(rl)
 
 Lastly, we take the top-ranked gene and plot its distribution.
 ```{r}
-set2 <- RColorBrewer::brewer.pal(8, "Set2")
-clrs = set2[c(4:3)]
+clrs <- c("#E78AC3", "#8DA0CB")
 plotReceptLoss(exprMatrNml, exprMatrTum, rl, geneName="g7", clrs=clrs)
+```
+
+A list of all nuclear hormone receptors is included as the object `nhrs`. This object will facilitate filtering of NHRs from a large matrix of gene expression data.
+
+```{r}
+
+
 ```
 

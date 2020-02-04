@@ -1,0 +1,55 @@
+hgnc_symbol,hgnc_id,hgnc_name,entrez_gene_id,ensembl_gene_id,synonyms
+NR0B1,7960,nuclear receptor subfamily 0 group B member 1,190,ENSG00000169297,"AHC|DSS|AHCH|adrenal hypoplasia, congenital homolog|AHX|nuclear receptor subfamily 0"
+NR0B2,7961,nuclear receptor subfamily 0 group B member 2,8431,ENSG00000131910,Small heterodimer partner|orphan nuclear receptor SHP|SHP-1|nuclear receptor subfamily 0
+THRA,11796,thyroid hormone receptor alpha,7067,ENSG00000126351,"AR7|EAR-7.1/EAR-7.2|ERBA|EAR7|erbA1|THRA|TR&alpha;|NR1A1|c-erb-A thyroid hormone receptor|c-erbA-1|nuclear receptor subfamily 1 group A member 1|c-erbAalpha|Rvr|T3R[a]|thyroid hormone receptor, alpha"
+THRB,11799,thyroid hormone receptor beta,7068,ENSG00000151090,"THR1|THRB1|THRB2|erbA2|THRB|NR1A2|c-erbA-2|nuclear receptor subfamily 1 group A member 2|T3rec|c-erbAbeta|T3Rbeta|TR beta|thyroid hormone receptor, beta"
+RARA,9864,retinoic acid receptor alpha,5914,ENSG00000131759,RAR alpha 1|RAR|RAR&alpha;|retinoic acid receptor
+RARB,9865,retinoic acid receptor beta,5915,ENSG00000077092,HAP|HBV-activated protein|RAR beta 2|retinoic acid receptor
+RARG,9866,retinoic acid receptor gamma,5916,ENSG00000172819,RARC|RAR&gamma;|RAR gamma 2|retinoic acid receptor
+PPARA,9232,peroxisome proliferator activated receptor alpha,5465,ENSG00000186951,NUC1|nuclear receptor subfamily 1 group C member 1|PPARalpha|PPAR
+PPARD,9235,peroxisome proliferator activated receptor delta,5467,ENSG00000112033,NUCII|PPAR&beta;/&delta;|NUC1|Pparb|Pparb/d|PPAR&delta;
+PPARG,9236,peroxisome proliferator activated receptor gamma,5468,ENSG00000132170,PPARG1|PPARG2|PPARgamma|nuclear receptor subfamily 1 group C member 3|PPARgamma2
+NR1D1,7962,nuclear receptor subfamily 1 group D member 1,9572,ENSG00000126368,"ear-1|EAR1|THRA1|THRAL|V-erbA-related protein EAR-1|nuclear receptor subfamily 1, group D, member 1|nuclear receptor subfamily 1"
+NR1D2,7963,nuclear receptor subfamily 1 group D member 2,9975,ENSG00000174738,EAR-1r|HZF2|EAR4|orphan nuclear receptor HZF-2|nuclear receptor subfamily 1
+RORA,10258,RAR related orphan receptor A,6095,ENSG00000069667,ROR1|ROR2|ROR3|ROR&alpha;|RZR&alpha;|nuclear receptor ROR-alpha|RAR-related orphan receptor A
+RORB,10259,RAR related orphan receptor B,6096,ENSG00000198963,RZR&beta;|nuclear receptor ROR-beta|nuclear receptor RZR-beta|nuclear receptor subfamily 1 group F member 2|retinoid-related orphan receptor-beta|ROR&beta;|RAR-related orphan receptor B
+RORC,10260,RAR related orphan receptor C,6097,ENSG00000143365,TOR|ROR&gamma;|RZR&gamma;|nuclear receptor ROR-gamma|Thor|thymus orphan receptor|nuclear receptor RZR-gamma
+NR1H4,7967,nuclear receptor subfamily 1 group H member 4,9971,ENSG00000012504,FXR|HRR1|RIP14|Bile acid receptor|FXR&alpha;|farnesoid X activated receptor|farnesol receptor HRR-1|retinoid X receptor-interacting protein 14|RXR-interacting protein 14|Rxrip14|nuclear receptor subfamily 1
+NR1H5P,32673,"nuclear receptor subfamily 1 group H member 5, pseudogene",643609,NA,"FXR&beta;|Lanosterol receptor|Nr1h5p|nuclear receptor subfamily 1, group H, member 5, pseudogene|nuclear receptor subfamily 1"
+NR1H3,7966,nuclear receptor subfamily 1 group H member 3,10062,ENSG00000025434,RLD-1|LXR&alpha;|Oxysterols receptor &alpha;|liver X receptor alpha|nuclear orphan receptor LXR-alpha|oxysterols receptor LXR-alpha|nuclear receptor subfamily 1
+NR1H2,7965,nuclear receptor subfamily 1 group H member 2,7376,ENSG00000131408,NER|NER-I|LXR&beta;|Oxysterols receptor &beta;|ubiquitously-expressed nuclear receptor|liver X receptor beta|nuclear orphan receptor LXR-beta|orphan nuclear receptor OR-1|oxysterols receptor LXR-beta|RIP15|UNR|nuclear receptor subfamily 1
+VDR,12679,vitamin D receptor,7421,ENSG00000111424,"nuclear receptor subfamily 1 group I member 1|vitamin D (1,25- dihydroxyvitamin D3) receptor|vitamin D (1|vitamin D (1,25-dihydroxyvitamin D3) receptor"
+NR1I2,7968,nuclear receptor subfamily 1 group I member 2,8856,ENSG00000144852,"BXR|Orphan nuclear receptor PAR1|PXR|steroid and xenobiotic receptor|SXR|orphan nuclear receptor PXR|ONR1|PAR2|pregnane-activated receptor|nuclear receptor subfamily 1, group I, member 2|nuclear receptor subfamily 1"
+NR1I3,7969,nuclear receptor subfamily 1 group I member 3,9970,ENSG00000143257,CAR|Constitutive activator of retinoid response|orphan nuclear receptor MB67|Care2|CAR1|MB67|nuclear receptor subfamily 1
+HNF4A,5024,hepatocyte nuclear factor 4 alpha,3172,ENSG00000101076,HNF4&alpha;|MODY1|TCF14|MODY|alpha transcription factor 4|hepatocyte nuclear factor 4 alpha 3|hepatocyte nuclear factor 4 alpha 9|HNF4alpha10|HNF4alpha11|HNF4alpha12|transcription factor 14|transcription factor HNF-4|Nuclear receptor 2A1|hepatocyte nuclear factor 4
+HNF4G,5026,hepatocyte nuclear factor 4 gamma,3174,ENSG00000164749,hepatocyte nuclear factor 4
+RXRA,10477,retinoid X receptor alpha,6256,ENSG00000186350,"RXR&alpha;|nuclear receptor subfamily 2 group B member 1|retinoic acid receptor RXR-alpha|retinoid X receptor, alpha"
+RXRB,10478,retinoid X receptor beta,6257,ENSG00000228333,"RXR&beta;|nuclear receptor subfamily 2 group B member 2|nuclear receptor co-regulator 1|RCoR-1|retinoid X receptor, beta"
+RXRB,10478,retinoid X receptor beta,6257,ENSG00000231321,"RXR&beta;|nuclear receptor subfamily 2 group B member 2|nuclear receptor co-regulator 1|RCoR-1|retinoid X receptor, beta"
+RXRB,10478,retinoid X receptor beta,6257,ENSG00000227322,"RXR&beta;|nuclear receptor subfamily 2 group B member 2|nuclear receptor co-regulator 1|RCoR-1|retinoid X receptor, beta"
+RXRB,10478,retinoid X receptor beta,6257,ENSG00000206289,"RXR&beta;|nuclear receptor subfamily 2 group B member 2|nuclear receptor co-regulator 1|RCoR-1|retinoid X receptor, beta"
+RXRB,10478,retinoid X receptor beta,6257,ENSG00000235712,"RXR&beta;|nuclear receptor subfamily 2 group B member 2|nuclear receptor co-regulator 1|RCoR-1|retinoid X receptor, beta"
+RXRB,10478,retinoid X receptor beta,6257,ENSG00000204231,"RXR&beta;|nuclear receptor subfamily 2 group B member 2|nuclear receptor co-regulator 1|RCoR-1|retinoid X receptor, beta"
+RXRG,10479,retinoid X receptor gamma,6258,ENSG00000143171,"nuclear receptor subfamily 2 group B member 3|retinoic acid receptor RXR-gamma|retinoid X receptor, gamma|RXR&gamma;"
+NR2C1,7971,nuclear receptor subfamily 2 group C member 1,7181,ENSG00000120798,"nuclear receptor subfamily 2|Eenr|orphan nuclear receptor TR2|orphan receptor, TR2-11|TR2"
+NR2C2,7972,nuclear receptor subfamily 2 group C member 2,7182,ENSG00000177463,TAK1|orphan nuclear receptor TR4|TR4 orphan receptor|TR4-NS orphan receptor|nuclear receptor subfamily 2
+NR2E1,7973,nuclear receptor subfamily 2 group E member 1,7101,ENSG00000112333,tailless homologue|TLL|Mtll|frc|XTLL|nuclear receptor subfamily 2
+NR2E3,7974,nuclear receptor subfamily 2 group E member 3,10002,ENSG00000278570,"nuclear receptor subfamily 2|nuclear receptor subfamily 2, group E, member 3|Photoreceptor-specific nuclear receptor|rd7|retina-specific nuclear receptor|RNR|RP37"
+NR2F1,7975,nuclear receptor subfamily 2 group F member 1,7025,ENSG00000175745,COUP&alpha;|EAR3|SVP44|ERBAL3|TFCOUP1|nuclear receptor subfamily 2
+NR2F2,7976,nuclear receptor subfamily 2 group F member 2,7026,ENSG00000185551,ARP1|COUP&beta;|COUP-TFII|SVP40|NF-E3|apolipoprotein A-I regulatory protein 1|Aporp1|EAR3|ovalbumin upstream promoter beta nuclear receptor|TFCOUP2|nuclear receptor subfamily 2
+NR2F6,7977,nuclear receptor subfamily 2 group F member 6,2063,ENSG00000160113,EAR2|ERBAL2|COUPg|orphan nuclear receptor EAR-2|ovalbumin upstream promoter gamma nuclear receptor rCOUPg|V-erbA-related protein 2|V-erbA-related protein EAR-2|COUP-TF3|nuclear receptor subfamily 2
+ESR1,3467,estrogen receptor 1,2099,ENSG00000091831,ESR|estradiol receptor|estrogen receptor alpha variant delta 4|nuclear receptor subfamily 3 group A member 1|RNESTROR|ER&alpha;|Era|Estr|Estra
+ESR2,3468,estrogen receptor 2,2100,ENSG00000140009,Erb2|nuclear receptor subfamily 3 group A member 2|ER&beta;|Erb|Estrb|estrogen receptor 2 (ER beta)
+ESRRA,3471,estrogen related receptor alpha,2101,ENSG00000173153,"ERR&alpha;|ESRL1|estrogen receptor-like 1|nuclear receptor subfamily 3 group B member 1|steroid hormone receptor ERR1|Estrra|estrogen related receptor, alpha|estrogen related receptor"
+ESRRB,3473,estrogen related receptor beta,2103,ENSG00000119715,"ERR&beta;|ESRL2|estrogen receptor-like 2|estrogen-related receptor &beta;|DFNB35|deafness, autosomal recessive 35|nuclear receptor subfamily 3 group B member 2|steroid hormone receptor ERR2|estrogen-related receptor beta|estrogen related receptor, beta|estrogen related receptor"
+ESRRG,3474,estrogen related receptor gamma,2104,ENSG00000196482,ERR&gamma;|ESRL3|estrogen receptor-like 3|nuclear receptor subfamily 3 group B member 3|ERR3|estrogen-related receptor 3
+AR,644,androgen receptor,367,ENSG00000169083,dihydrotestosterone receptor|AR|Andr|nuclear receptor subfamily 3 group C member 4|AIS|DHTR|HUMARA|HYSP1
+NR3C1,7978,nuclear receptor subfamily 3 group C member 1,2908,ENSG00000113580,"GCCR|GCR|GR|Type II glucocorticoid receptor|nuclear receptor subfamily 3, group C, member 1 (glucocorticoid receptor)|nuclear receptor subfamily 3"
+NR3C2,7979,nuclear receptor subfamily 3 group C member 2,4306,ENSG00000151623,aldosterone receptor|Type I glucocorticoid receptor|MCR|MLR|MR|nuclear receptor subfamily 3
+PGR,8910,progesterone receptor,5241,ENSG00000082175,PGR|nuclear receptor subfamily 3 group C member 3|progestin receptor form A|progestin receptor form B|PR|PR-A|PR-B
+NR4A1,7980,nuclear receptor subfamily 4 group A member 1,3164,ENSG00000123358,GFRP1|NUR77|NAK1|ST59|TR3|immediate early gene transcription factor NGFI-B|nerve growth factor-induced protein I-B|Orphan nuclear receptor HMR|Gfrp|Hbr1|NGFIB|TIS1|nuclear receptor subfamily 4
+NR4A2,7981,nuclear receptor subfamily 4 group A member 2,4929,ENSG00000153234,RNR1|Immediate early response protein NOT|TINUR|NUR-related factor 1|SL-322|nuclear orphan receptor HZF-3|orphan nuclear receptor NURR1|regenerating liver nuclear receptor 1|transcriptionally inducible nuclear receptor|nuclear receptor subfamily 4
+NR4A3,7982,nuclear receptor subfamily 4 group A member 3,8013,ENSG00000119508,CHN|MINOR|mitogen-induced nuclear orphan receptor|Neuron-derived orphan receptor|NOR1|neuron-derived orphan receptor 1|neuron-derived orphan receptor 1/2|nuclear hormone receptor NOR-1/NOR-2|TEC|CSMF|nuclear receptor subfamily 4
+NR5A1,7983,nuclear receptor subfamily 5 group A member 1,2516,ENSG00000136931,"ELP|FTZ1|SF-1|adrenal 4-binding protein|steroid hormone receptor Ad4BP|FTZF1|fushi tarazu factor homolog 1|STF-1|nuclear receptor subfamily 5, group A, member 1|nuclear receptor subfamily 5"
+NR5A2,7984,nuclear receptor subfamily 5 group A member 2,2494,ENSG00000116833,B1F2|FTZ-F1|hB1F-2|&alpha;1-fetoprotein transcription factor|B1-binding factor|hepatocytic transcription factor|LRH-1|FTF|FTZ-F1 beta2 protein|liver receptor homolog 1|FTZ-F1&beta;|nuclear receptor subfamily 5
+NR6A1,7985,nuclear receptor subfamily 6 group A member 1,2649,ENSG00000148200,GCNF1|GCNF|RTR|NCNF|retinoid receptor-related testis-specific receptor|nuclear receptor subfamily 6
