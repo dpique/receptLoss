@@ -1,5 +1,5 @@
 ---
-title: "ReceptLoss vignette"
+title: "receptLoss"
 author: "Daniel Pique"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-receptLoss is an R package that detects potentially novel tumor suppressors using gene expression data from tumor and adjacent normal tissue. 
+`receptLoss` is an R package that detects potentially novel tumor suppressors using gene expression data from tumor and adjacent normal tissue. The package is particularly focused on identifying nuclear hormone receptors, whose loss of expression has been correlated with poor outcomes in endometrial and breast cancer.
 
 receptLoss consists of 2 main functions:
 
@@ -29,7 +29,6 @@ receptLoss consists of 2 main functions:
 We begin by simulating two gene expression data matrices, one from tumor and the other from normal tissue.
 ```{r warning=FALSE, message=FALSE}
 library(receptLoss)
-library(tidyverse)
 
 set.seed(100)
 exprMatrNml <- matrix(abs(rnorm(100, mean = 2)), nrow=10) 
@@ -56,7 +55,6 @@ plotReceptLoss(exprMatrNml, exprMatrTum, rl, geneName="g7", clrs=clrs)
 A list of all nuclear hormone receptors is included as the object `nhrs`. This object will facilitate filtering of NHRs from a large matrix of gene expression data.
 
 ```{r}
-
-
+receptLoss::nhrs
 ```
 

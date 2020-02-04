@@ -1,6 +1,6 @@
 # receptLoss
 
-This package contains functions to detect nuclear hormone receptor (NHR) expression loss in subsets of tumors relative to normal tissue. 
+This package contains functions to detect nuclear hormone **recept**or (NHR) expression **loss** in subsets of tumors relative to normal tissue. 
 
 * `receptLoss`: the main function in this package.
 

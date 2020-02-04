@@ -19,7 +19,10 @@ order as exprMatrNml.}
 \item{rldf}{The dataframe output from running the receptLoss function}
 
 \item{geneName}{The name of the gene to plot. The name of the gene should
-correspond to a row name in both exprMatrNml and exprMatrTum matrices}
+correspond to a row name in both exprMatrNml and exprMatrTum matrices.}
+
+\item{addToTitle}{A string that can be added to the title, which includes
+the gene name.}
 
 \item{clrs}{Vector of length 2 containing colors to use for plot}
 }
@@ -36,7 +39,7 @@ minPropPerGroup <- .2
 rl <- receptLoss(exprMatrNml, exprMatrTum, nSdBelow, minPropPerGroup)
 set2 <- RColorBrewer::brewer.pal(8, "Set2")
 clrs = set2[c(4:3)]
-plotReceptLoss(exprMatrNml, exprMatrTum, rl, geneName="g7", clrs)
+plotReceptLoss(exprMatrNml, exprMatrTum, rl, geneName="g7", clrs=clrs)
 }
 \keyword{expression,}
 \keyword{gene}

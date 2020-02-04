@@ -27,7 +27,7 @@ nSdBelowMean <- function(mn, sd, n){
 #' (defined by the boundary set by nSdBelow) for a particular gene.
 #' @keywords gene expression, subgroups
 #' @importFrom magrittr "%>%"
-#' @import dplyr tidyr tidyverse stats
+#' @import tidyr tidyverse stats
 #' @export
 #' @examples
 #' exprMatrNml <- matrix(abs(rnorm(100, mean = 2)), nrow=10)
@@ -40,7 +40,11 @@ nSdBelowMean <- function(mn, sd, n){
 #' head(rl)
 
 receptLoss <- function(exprMatrNml, exprMatrTum, nSdBelow, minPropPerGroup){
-  ## 2a. Identify boundary nSdBelow the mean of adj. normal tissue
+  ## Remove warnings from devtools::check()
+  propTumLessThBound <- NULL
+  meetsMinPropPerGrp <- NULL
+
+  ## Identify boundary nSdBelow the mean of adj. normal tissue
   boundAll <- apply(exprMatrNml, 1, function(x) nSdBelowMean(mean(x), sd(x), nSdBelow))
   propTumLessThanBound <- rowSums(exprMatrTum < boundAll) / ncol(exprMatrTum)
 
@@ -50,13 +54,13 @@ receptLoss <- function(exprMatrNml, exprMatrTum, nSdBelow, minPropPerGroup){
   meansBelow <- rowMeans(exprMatrTum * binIndxMatrLsTh, na.rm=T)
   deltaMu <- meansAbove - meansBelow
 
-  boundAllDf <- tibble::tibble("geneNm" = rownames(exprMatrNml),
+  boundAllDf <- dplyr::tibble("geneNm" = rownames(exprMatrNml),
                        "lowerBound"= boundAll,
                        "propTumLessThBound"=propTumLessThanBound,
                        "muAb"=meansAbove,
                        "muBl"=meansBelow,
                        "deltaMu"=deltaMu) %>%
-    mutate(meetsMinPropPerGrp = propTumLessThBound > minPropPerGroup &
+    dplyr::mutate(meetsMinPropPerGrp = propTumLessThBound > minPropPerGroup &
                               propTumLessThBound < {1-minPropPerGroup}) %>%
                 dplyr::arrange(-meetsMinPropPerGrp, -deltaMu)
   return(boundAllDf)
@@ -75,11 +79,13 @@ receptLoss <- function(exprMatrNml, exprMatrTum, nSdBelow, minPropPerGroup){
 #'   order as exprMatrNml.
 #' @param rldf The dataframe output from running the receptLoss function
 #' @param geneName The name of the gene to plot. The name of the gene should
-#'   correspond to a row name in both exprMatrNml and exprMatrTum matrices
+#'   correspond to a row name in both exprMatrNml and exprMatrTum matrices.
+#' @param addToTitle A string that can be added to the title, which includes
+#'   the gene name.
 #' @param clrs Vector of length 2 containing colors to use for plot
 #' @keywords gene expression, subgroups, visualization
 #' @importFrom magrittr "%>%"
-#' @import dplyr tidyr ggplot2 tidyverse stats SummarizedExperiment
+#' @import tidyr ggplot2 tidyverse stats
 #' @export
 #' @examples
 #' exprMatrNml <- matrix(abs(rnorm(100, mean = 2)), nrow=10)
@@ -91,13 +97,17 @@ receptLoss <- function(exprMatrNml, exprMatrTum, nSdBelow, minPropPerGroup){
 #' rl <- receptLoss(exprMatrNml, exprMatrTum, nSdBelow, minPropPerGroup)
 #' set2 <- RColorBrewer::brewer.pal(8, "Set2")
 #' clrs = set2[c(4:3)]
-#' plotReceptLoss(exprMatrNml, exprMatrTum, rl, geneName="g7", clrs)
+#' plotReceptLoss(exprMatrNml, exprMatrTum, rl, geneName="g7", clrs=clrs)
 
 plotReceptLoss <- function(exprMatrNml, exprMatrTum, rldf, geneName, addToTitle="", clrs){
+  type <- NULL
+  propTumLessThBound <- NULL
+  meetsMinPropPerGrp <- NULL
+  ..density.. <- NULL
 
-  normal <- exprMatrNml[geneName, ] %>% data.frame() %>% mutate(type = "normal")
-  tumor <- exprMatrTum[geneName, ] %>% data.frame() %>% mutate(type = "tumor")
-  tidyDf <- rbind(normal, tumor) %>% as_tibble() %>% rename(expr = ".")
+  normal <- exprMatrNml[geneName, ] %>% data.frame() %>% dplyr::mutate(type = "normal")
+  tumor <- exprMatrTum[geneName, ] %>% data.frame() %>% dplyr::mutate(type = "tumor")
+  tidyDf <- rbind(normal, tumor) %>% dplyr::as_tibble() %>% dplyr::rename(expr = ".")
   rldf.sub <- rldf[rldf[, "geneNm"] == geneName, ]
   p1 <- ggplot(tidyDf, aes(x = expr, color = as.factor(type),
                            fill = as.factor(type), group = as.factor(type))) + theme_classic() +
