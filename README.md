@@ -4,6 +4,8 @@
   [![Travis build status](https://travis-ci.org/dpique/receptLoss.svg?branch=master)](https://travis-ci.org/dpique/receptLoss)
   <!-- badges: end -->
 
+[receptLoss figure](./vignettes/fig1.png)
+
 This package contains functions to detect nuclear hormone **recept**or (NHR) expression **loss** in subsets of tumors relative to normal tissue. 
 
 * `receptLoss`: the main function in this package.
@@ -23,8 +25,13 @@ It also includes a dataset consisting of all known NHRs:
 ## Installation
 
 ```R
-# Install the development version from GitHub
-devtools::install_github("dpique/receptLoss", build_vignettes=TRUE)
+## Install the development version of receptLoss from GitHub
+devtools::install_github("dpique/receptLoss", 
+    build_opts=c("--no-resave-data", "--no-manual"),
+    build_vignettes=TRUE)
+
+## open the vignette locally
+vignette("receptLoss") 
 ```
 
 
