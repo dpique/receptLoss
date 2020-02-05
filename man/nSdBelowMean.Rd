@@ -13,6 +13,9 @@ nSdBelowMean(mn, sd, n)
 
 \item{n}{number of std dev below mean to calculate}
 }
+\value{
+the value `n` standard deviations below the mean `mn`
+}
 \description{
 This function allows you to identify genes with loss of expression
 }

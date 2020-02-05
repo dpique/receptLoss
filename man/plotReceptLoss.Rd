@@ -8,9 +8,9 @@ plotReceptLoss(exprMatrNml, exprMatrTum, rldf, geneName, addToTitle = "",
   clrs)
 }
 \arguments{
-\item{exprMatrNml}{A matrix of expression values from normal tissue. Each row
-is a gene, and each column is a patient or sample. Genes should be in same
-order as exprMatrTum.}
+\item{exprMatrNml}{A matrix of expression values from normal tissue.
+Each row is a gene, and each column is a patient or sample. Genes should
+be in same order as exprMatrTum.}
 
 \item{exprMatrTum}{A matrix of expression values from tumor tissue. Each row
 is a gene, and each column is a patient or sample. Genes should be in same
@@ -26,6 +26,9 @@ the gene name.}
 
 \item{clrs}{Vector of length 2 containing colors to use for plot}
 }
+\value{
+returns an object of class `ggplot`
+}
 \description{
 This function allows you to plot histograms of tumor and adj normal data
 }
@@ -37,8 +40,7 @@ rownames(exprMatrNml) <- rownames(exprMatrTum) <- geneNames
 nSdBelow <- 2
 minPropPerGroup <- .2
 rl <- receptLoss(exprMatrNml, exprMatrTum, nSdBelow, minPropPerGroup)
-set2 <- RColorBrewer::brewer.pal(8, "Set2")
-clrs = set2[c(4:3)]
+clrs <- c("#E78AC3", "#8DA0CB")
 plotReceptLoss(exprMatrNml, exprMatrTum, rl, geneName="g7", clrs=clrs)
 }
 \keyword{expression,}

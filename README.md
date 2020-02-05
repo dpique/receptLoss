@@ -1,5 +1,9 @@
 # receptLoss
 
+ <!-- badges: start -->
+  [![Travis build status](https://travis-ci.org/dpique/receptLoss.svg?branch=master)](https://travis-ci.org/dpique/receptLoss)
+  <!-- badges: end -->
+
 This package contains functions to detect nuclear hormone **recept**or (NHR) expression **loss** in subsets of tumors relative to normal tissue. 
 
 * `receptLoss`: the main function in this package.

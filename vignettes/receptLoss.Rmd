@@ -4,30 +4,57 @@ author: "Daniel Pique"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+    %\VignetteIndexEntry{receptLoss}
+    %\VignetteEngine{knitr::rmarkdown}
+    %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  warning=FALSE,
-  message=FALSE
+    collapse = TRUE,
+    comment = "#>",
+    warning=FALSE,
+    message=FALSE
 )
 ```
 
-`receptLoss` is an R package that detects potentially novel tumor suppressors using gene expression data from tumor and adjacent normal tissue. The package is particularly focused on identifying nuclear hormone receptors, whose loss of expression has been correlated with poor outcomes in endometrial and breast cancer.
+`receptLoss` is an R package that detects potentially novel tumor suppressors 
+using gene expression data from tumor and adjacent normal tissue. The package 
+is particularly focused on identifying nuclear hormone receptors, whose loss 
+of expression has been correlated with poor outcomes in endometrial and 
+breast cancer.
+
+`receptLoss` is complementary to 
+[`oncomix`](https://github.com/dpique/oncomix). Whereas `oncomix` detects 
+the **gain** of gene expression in subsets of tumors relative to normal 
+tissue, `receptLoss` detects the **loss** of gene expression in subsets 
+of tumors relative to normal tissue.
+
+## Installation
+
+```{r eval = FALSE}
+# Install the development version from GitHub
+devtools::install_github("dpique/receptLoss")
+```
+
+## Usage
 
 receptLoss consists of 2 main functions:
 
-  - `receptLoss()` takes in 2 matrices of gene expression data, one from tumor and one from adjacent normal tissue. The output is a matrix with rows representing genes and columns representing summary statistics. The rows are sorted by the `deltaMu` statistic, which indicates the degree of separation between the two groups. Higher `deltaMu` values indicate tumor groups that are more clearly separated and more likely to constitute a true bimodal distribution.
-  
-  - `plotReceptLoss()` takes in the generates a histogram visualization of the distribution of a particular gene.
+    - `receptLoss()` takes in 2 matrices of gene expression data, one from 
+    tumor and one from adjacent normal tissue. The output is a matrix with 
+    rows representing genes and columns representing summary statistics. 
+    The rows are sorted by the `deltaMu` statistic, which indicates the degree
+    of separation between the two groups. Higher `deltaMu` values indicate 
+    tumor groups that are more clearly separated and more likely to constitute 
+    a true bimodal distribution.
+    
+    - `plotReceptLoss()` takes in the generates a histogram visualization of the
+    distribution of a particular gene.
 
-We begin by simulating two gene expression data matrices, one from tumor and the other from normal tissue.
-```{r warning=FALSE, message=FALSE}
+We begin by simulating two gene expression data matrices, one from tumor 
+and the other from normal tissue.
+```{r warning = FALSE, message = FALSE}
 library(receptLoss)
 
 set.seed(100)
@@ -38,7 +65,9 @@ rownames(exprMatrNml) <- rownames(exprMatrTum) <- geneNames
 
 ```
 
-Then, we set parameters, such as the threshold `nSdBelow` and the `minPropPerGroup`, or the minimum proportion of all tumor samples samples that should be within a group.
+Then, we set parameters, such as the threshold `nSdBelow` and the
+`minPropPerGroup`, or the minimum proportion of all tumor samples 
+that should be within a group.
 ```{r}
 nSdBelow <- 2
 minPropPerGroup <- .2
@@ -52,7 +81,9 @@ clrs <- c("#E78AC3", "#8DA0CB")
 plotReceptLoss(exprMatrNml, exprMatrTum, rl, geneName="g7", clrs=clrs)
 ```
 
-A list of all nuclear hormone receptors is included as the object `nhrs`. This object will facilitate filtering of NHRs from a large matrix of gene expression data.
+A list of all nuclear hormone receptors is included as the object `nhrs`.
+This object will facilitate filtering of NHRs from a large matrix of gene 
+expression data.
 
 ```{r}
 receptLoss::nhrs
