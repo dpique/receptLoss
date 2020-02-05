@@ -2,8 +2,8 @@
 
 ## nhrs is a table join between targets_and_families.csv,
 ## a file containing a list of all NHRs with suppl data,
-## and biomart_nhr_ensg_hgnc.csv, a file created
-## using biomart
+## and biomart_nhr_ensg_hgnc.csv, a file created and
+## downloaded from biomart
 
 library(tidyverse)
 library(readxl)
