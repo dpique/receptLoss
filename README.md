@@ -6,7 +6,7 @@
 
 ![receptLoss figure](./vignettes/fig_1.png)
 
-This package contains functions to detect nuclear hormone **recept**or (NHR) expression **loss** in subsets of tumors relative to normal tissue. 
+This package contains functions to detect nuclear hormone **recept**or (NHR) expression **loss** (**receptLoss**) in subsets of tumors relative to normal tissue. 
 
 * `receptLoss`: the main function in this package.
 
