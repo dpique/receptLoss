@@ -11,8 +11,8 @@ vignette: >
 
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
-    collapse = TRUE,
-    comment = "#>",
+    collapse=TRUE,
+    comment="#>",
     warning=FALSE,
     message=FALSE
 )
@@ -33,7 +33,7 @@ of tumors relative to normal tissue.
 ## Installation
 
 ```{r eval = FALSE}
-# Install the development version from GitHub
+## Install the development version from GitHub
 devtools::install_github("dpique/receptLoss")
 ```
 
@@ -58,7 +58,7 @@ and the other from normal tissue.
 library(receptLoss)
 
 set.seed(100)
-exprMatrNml <- matrix(abs(rnorm(100, mean = 2)), nrow=10) 
+exprMatrNml <- matrix(abs(rnorm(100, mean=2)), nrow=10) 
 exprMatrTum <- matrix(abs(rnorm(100)), nrow=10)
 geneNames <- paste0(letters[1:nrow(exprMatrNml)], 1:nrow(exprMatrNml))
 rownames(exprMatrNml) <- rownames(exprMatrTum) <- geneNames

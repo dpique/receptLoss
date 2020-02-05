@@ -38,7 +38,7 @@ nSdBelowMean <- function(mn, sd, n){
 #'   (ie above) the `lowerBound`.
 #'   \item `muBl` - "mu below", the mean expression value of tumors less than
 #'   (ie below) the `lowerBound`.
-#'   \item `deltaMu` = `muAb`-`muBl`.
+#'   \item `deltaMu` - the difference between `muAb` and `muBl`.
 #'   \item meetsMinPropPerGrp - a logical indicating whether the proportion
 #'   of samples in each group is greater than that set by `minPropPerGroup`.
 #' }
@@ -47,7 +47,7 @@ nSdBelowMean <- function(mn, sd, n){
 #' @import tidyr tidyverse stats
 #' @export
 #' @examples
-#' exprMatrNml <- matrix(abs(rnorm(100, mean = 2)), nrow=10)
+#' exprMatrNml <- matrix(abs(rnorm(100, mean=2)), nrow=10)
 #' exprMatrTum <- matrix(abs(rnorm(100)), nrow=10)
 #' geneNames <- paste0(letters[1:nrow(exprMatrNml)], 1:nrow(exprMatrNml))
 #' rownames(exprMatrNml) <- rownames(exprMatrTum) <- geneNames
@@ -69,10 +69,10 @@ receptLoss <- function(exprMatrNml, exprMatrTum, nSdBelow, minPropPerGroup){
 
     propTumLessThanBound <- rowSums(exprMatrTum < boundAll) / ncol(exprMatrTum)
 
-    binIndxMatrGrTh <- ifelse(exprMatrTum>boundAll, 1, NA)
-    binIndxMatrLsTh <- ifelse(exprMatrTum<boundAll, 1, NA)
-    meansBelow <- rowMeans(exprMatrTum*binIndxMatrLsTh, na.rm = TRUE)
-    meansAbove <- rowMeans(exprMatrTum*binIndxMatrGrTh, na.rm = TRUE)
+    binIndxMatrGrTh <- ifelse(exprMatrTum > boundAll, 1, NA)
+    binIndxMatrLsTh <- ifelse(exprMatrTum < boundAll, 1, NA)
+    meansBelow <- rowMeans(exprMatrTum*binIndxMatrLsTh, na.rm=TRUE)
+    meansAbove <- rowMeans(exprMatrTum*binIndxMatrGrTh, na.rm=TRUE)
     deltaMu <- meansAbove - meansBelow
 
     boundAllDf <- dplyr::tibble("geneNm"=rownames(exprMatrNml),
@@ -110,7 +110,7 @@ receptLoss <- function(exprMatrNml, exprMatrTum, nSdBelow, minPropPerGroup){
 #' @import tidyr ggplot2 tidyverse stats
 #' @export
 #' @examples
-#' exprMatrNml <- matrix(abs(rnorm(100, mean = 2)), nrow=10)
+#' exprMatrNml <- matrix(abs(rnorm(100, mean=2)), nrow=10)
 #' exprMatrTum <- matrix(abs(rnorm(100)), nrow=10)
 #' geneNames <- paste0(letters[1:nrow(exprMatrNml)], 1:nrow(exprMatrNml))
 #' rownames(exprMatrNml) <- rownames(exprMatrTum) <- geneNames
@@ -121,7 +121,7 @@ receptLoss <- function(exprMatrNml, exprMatrTum, nSdBelow, minPropPerGroup){
 #' plotReceptLoss(exprMatrNml, exprMatrTum, rl, geneName="g7", clrs=clrs)
 
 plotReceptLoss <- function(exprMatrNml, exprMatrTum, rldf,
-                            geneName, addToTitle = "", clrs) {
+                            geneName, addToTitle="", clrs) {
     type <- NULL
     propTumLessThBound <- NULL
     meetsMinPropPerGrp <- NULL
@@ -129,44 +129,44 @@ plotReceptLoss <- function(exprMatrNml, exprMatrTum, rldf,
 
     normal <- exprMatrNml[geneName,] %>%
         data.frame() %>%
-        dplyr::mutate(type = "normal")
+        dplyr::mutate(type="normal")
     tumor <- exprMatrTum[geneName,] %>%
         data.frame() %>%
-        dplyr::mutate(type = "tumor")
+        dplyr::mutate(type="tumor")
     tidyDf <- rbind(normal, tumor) %>%
         dplyr::as_tibble() %>%
-        dplyr::rename(expr = ".")
+        dplyr::rename(expr=".")
     rldf.sub <- rldf[rldf[, "geneNm"] == geneName,]
-    p1 <- ggplot(tidyDf, aes(x = expr, color = as.factor(type),
-                            fill = as.factor(type), group = as.factor(type)
+    p1 <- ggplot(tidyDf, aes(x=expr, color=as.factor(type),
+                            fill=as.factor(type), group=as.factor(type)
         )) +
     theme_classic() +
     geom_histogram(
-        data = subset(tidyDf, type == "tumor"), alpha = 0.5,
-        aes(y = ..density..), binwidth = 0.2,
-        color = clrs[2], fill = clrs[2]
+        data=subset(tidyDf, type == "tumor"), alpha=0.5,
+        aes(y=..density..), binwidth=0.2,
+        color=clrs[2], fill=clrs[2]
     ) +
-    scale_fill_manual(values = clrs) +
+    scale_fill_manual(values=clrs) +
     theme(
-        axis.title = element_blank(),
-        axis.text.y = element_blank(),
-        axis.ticks.y = element_blank(),
-        axis.line.y = element_blank(),
-        legend.position = "none",
-        text = element_text(size = 20, color = "black"),
-        plot.title = element_text(face = "italic")
+        axis.title=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks.y=element_blank(),
+        axis.line.y=element_blank(),
+        legend.position="none",
+        text=element_text(size=20, color="black"),
+        plot.title=element_text(face="italic")
     ) +
     xlim(c(-0.1, 0.2 + max(exprMatrTum, exprMatrNml))) +
     ggtitle(paste0(geneName, addToTitle)) +
     xlab(expression(Log[2] * "(TPM Reads)")) +
-    geom_vline(size = 2, alpha = 0.8,
-        color = clrs[1], xintercept = rldf.sub$lowerBound
+    geom_vline(size=2, alpha=0.8,
+        color=clrs[1], xintercept=rldf.sub$lowerBound
     ) +
     stat_function(
-        fun = "dnorm", colour = clrs[1],
-        args = list(mean = mean(normal$.),
-                    sd = sd(normal$.)),
-        linetype = "dashed", size = 1.5
+        fun="dnorm", colour=clrs[1],
+        args=list(mean=mean(normal$.),
+                    sd=sd(normal$.)),
+        linetype="dashed", size=1.5
     )
     print(p1)
 }
