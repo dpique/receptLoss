@@ -24,7 +24,7 @@ It also includes a dataset consisting of all known NHRs:
 
 ```R
 # Install the development version from GitHub
-devtools::install_github("dpique/receptLoss")
+devtools::install_github("dpique/receptLoss", build_vignettes=TRUE)
 ```
 
 
