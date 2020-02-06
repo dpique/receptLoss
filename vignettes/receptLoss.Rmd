@@ -1,6 +1,6 @@
 ---
 title: "receptLoss"
-author: "Daniel Pique"
+author: "Daniel Piqué"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
@@ -18,58 +18,98 @@ knitr::opts_chunk$set(
 )
 ```
 
-`receptLoss` is an R package that detects potentially novel tumor suppressors 
-using gene expression data from tumor and adjacent normal tissue. The package 
-is particularly focused on identifying nuclear hormone receptors, whose loss 
+`receptLoss` is an R package that detects potentially novel tumor suppressor 
+(TS) genes using RNA expression data from tumor and adjacent normal tissue. 
+Most TS have been identified using DNA mutations, but no systematic approach
+exists for identifying novel TS based on patterns of RNA expression.
+
+`receptLoss` is focused on identifying candidate TS among the 
+nuclear hormone receptors, a family 
+of genes that has known roles in oncogenesis and whose loss 
 of expression has been correlated with poor outcomes in endometrial and 
-breast cancer.
+breast cancer. 
 
 `receptLoss` is complementary to 
-[`oncomix`](https://github.com/dpique/oncomix). Whereas `oncomix` detects 
-the **gain** of gene expression in subsets of tumors relative to normal 
-tissue, `receptLoss` detects the **loss** of gene expression in subsets 
+[`oncomix`](https://bioconductor.org/packages/release/bioc/html/oncomix.html). Whereas `oncomix` detects genes that **gain** expression in subsets of tumors relative to normal 
+tissue, `receptLoss` detects genes that **lose** expression in subsets 
 of tumors relative to normal tissue.
 
 ## Installation
 
 ```{r eval = FALSE}
 ## Install the development version from GitHub
-devtools::install_github("dpique/receptLoss", build_opts=c("--no-resave-data", "--no-manual"), build_vignettes=TRUE)
-
-vignette("receptLoss") #display this same vignette locally
+devtools::install_github("dpique/receptLoss", 
+                          build_opts=c("--no-resave-data", "--no-manual"),
+                          build_vignettes=TRUE)
 ```
 
 ## Usage
 
-receptLoss consists of 2 main functions:
+`receptLoss` consists of 2 main functions:
 
-    - `receptLoss()` takes in 2 matrices of gene expression data, one from 
-    tumor and one from adjacent normal tissue. The output is a matrix with 
-    rows representing genes and columns representing summary statistics. 
-    The rows are sorted by the `deltaMu` statistic, which indicates the degree
-    of separation between the two groups. Higher `deltaMu` values indicate 
-    tumor groups that are more clearly separated and more likely to constitute 
-    a true bimodal distribution.
-    
-    - `plotReceptLoss()` takes in the generates a histogram visualization of the
-    distribution of a particular gene.
+- `receptLoss()` takes in 2 matrices of gene expression data, one from 
+tumor and one from adjacent normal tissue. The output is a matrix with 
+rows representing genes and columns representing summary statistics. 
+
+- `plotReceptLoss()` generates a histogram visualization of the
+distribution of the gene desired by the user.
 
 We begin by simulating two gene expression data matrices, one from tumor 
 and the other from normal tissue.
+
 ```{r warning = FALSE, message = FALSE}
 library(receptLoss)
 
 set.seed(100)
-exprMatrNml <- matrix(abs(rnorm(100, mean=2)), nrow=10) 
-exprMatrTum <- matrix(abs(rnorm(100)), nrow=10)
+
+## Simulate matrix of expression values from
+## 10 genes measured in both normal tissue and 
+## tumor tissue in 100 patients
+
+exprMatrNml <- matrix(abs(rnorm(100, mean=2.5)), nrow=10) 
+exprMatrTum <- matrix(abs(rnorm(1000)), nrow=10)
 geneNames <- paste0(letters[1:nrow(exprMatrNml)], 1:nrow(exprMatrNml))
 rownames(exprMatrNml) <- rownames(exprMatrTum) <- geneNames
 
 ```
 
-Then, we set parameters, such as the threshold `nSdBelow` and the
-`minPropPerGroup`, or the minimum proportion of all tumor samples 
-that should be within a group.
+`exprMatrNml` and `exprMatrTum` are $m \times n$ matrices containing gene expression data from normal and tumor tissue, respectively, with $m$ genes as rows and $n$ patients as columns. The row names of these matrices are the gene names. 
+
+These two matrices should have the same number of rows (ie genes), with genes listed in the same order between the two matrices. However, they don't have to have the same number of columns (ie patients).
+
+To run `receptLoss()`, we also define 2 parameters:
+
+* `nSdBelow` is an integer value that places a lower boundary 
+(i.e. `lowerBound`, shown as the pink 'B' in image below) `n` 
+standard deviations below 
+the mean of each gene's expression levels in normal tissue 
+(dotted pink curve below). 
+The larger `nSdBelow` is, the smaller (i.e. further to the left) 
+the `lowerBound` becomes. 
+
+    * We recommend setting `nSdBelow` = 2, as 
+    ~`r round(pnorm(q = 2, mean = 0, sd = 1), 3) * 100`% of the 
+    normal tissue expression data should be greater than the `lowerBound` 
+    (assuming the expression data from normal tissue is distributed
+    as a Gaussian).
+
+* `minPropPerGroup` - a numeric value between $(0,0.5)$ indicating the 
+minimum proportion of tumor samples desired within each of the 
+two tumor subgroups defined by the `lowerBound`. Determines the value of 
+`meetsMinPropPerGrp` (either TRUE or FALSE) in the output, explained below.
+
+    * We recommend setting
+    `minPropPerGroup`=0.20. Values close to 0 may result in 
+    the inclusion of genes that subdivide tumors into very 
+    unequally-sized subgroups.
+    Values closer to 0.5 will identify genes that subdivide tumors
+    into nearly equal-sized groups and may be unnecessarily restrictive.
+
+    
+<img src="fig_2_1.png" alt="fig 2", width = "60%">
+
+
+
 ```{r}
 nSdBelow <- 2
 minPropPerGroup <- .2
@@ -77,17 +117,132 @@ rl <- receptLoss(exprMatrNml, exprMatrTum, nSdBelow, minPropPerGroup)
 head(rl)
 ```
 
-Lastly, we take the top-ranked gene and plot its distribution.
+The output of `receptLoss()` is an $m\times7$ matrix, 
+with $m$ equaling the number of genes. The 7 columns are as follows:
+
+* `geneNm` - the gene name
+
+* `lowerBound` - the lower bound, or the value `nSdBelow` the mean of
+the normal tissue expression data.
+
+* `propTumLessThBound` - the proportion of tumor samples with
+expression levels less than `lowerBound`. Indicated by $\pi_L$ (also see visual),
+which can be expressed as: 
+$$\pi_L  = \frac{1}{N_T}\sum_{j=1}^{N_T} \Bigg\{ 
+\begin{array}{ll} 1,~ if~x_{j} <
+lowerBound  \\ 
+0, ~ otherwise 
+\end{array},
+$$ where $x_{j}$ is the $j^{th}$ tumor sample and 
+$N_T$ is the total number of tumor samples.
+
+* `muAb` - "mu above", the mean expression value of tumors greater than
+(ie above) the `lowerBound`.
+
+* `muBl` - "mu below", the mean expression value of tumors less than
+(ie below) the `lowerBound`.
+
+* `deltaMu` - the difference between `muAb` and `muBl`. The rows are 
+sorted in descending order by the `deltaMu` statistic, which indicates the 
+degree of separation between the two tumor subgroups. Higher `deltaMu` values
+indicate tumor subgroups that are more cleanly separated and more likely to 
+constitute a true bimodal distribution.
+
+* `meetsMinPropPerGrp` - a logical indicating whether the proportion
+of samples in each group is greater than that set by `minPropPerGroup`.
+If `minPropPerGroup` $< min(\pi_L, 1-\pi_L)$, 
+then `meetsMinPropPerGrp` is `TRUE`; otherwise, it is `FALSE`.
+Genes for which `meetsMinPropPerGrp` equals `FALSE` can be filtered out - 
+they do not have a sufficient
+proportion of tumors in each group to permit useful tumor subgrouping.
+
+
+
+
+## Visualization
+
+We take the top-ranked gene and plot its distribution.
 ```{r}
 clrs <- c("#E78AC3", "#8DA0CB")
-plotReceptLoss(exprMatrNml, exprMatrTum, rl, geneName="g7", clrs=clrs)
+plotReceptLoss(exprMatrNml, exprMatrTum, rl, geneName=as.character(rl[1,1]), clrs=clrs)
 ```
 
+Here's what this graph is showing us: 
+
+* The x-axis represents RNA expression values, with lower values toward 
+the left and larger values (i.e. higher expression) toward the right. 
+The y-axis represents density. The name of the gene 
+("`r as.character(rl[1,1])`") is shown
+in the upper left of the plot.
+
+* The dotted curve represents a Gaussian distribution over the 
+the expression data from normal tissue,
+and the blue histogram represents expression data from tumor tissue.
+
+* The pink vertical line corresponds to the `lowerBound` for the 
+expression data from normal tissue. The position of this line 
+was derived from the value of `nSdBelow` 
+(in this example, `r nSdBelow`) and the mean of the expression 
+from normal tissue. 
+
+* Since most normal tissue expresses the RNA above the `lowerBound`, 
+any tumors that express the RNA below this value have lost RNA 
+expression relative to normal tissue. Thus, the pink line forms 
+a boundary between 2 tumor subgroups that either have or have not
+lost RNA expression relative to normal tissue. 
+
+## NHR filtering
+
 A list of all nuclear hormone receptors is included as the object `nhrs`.
-This object will facilitate filtering of NHRs from a large matrix of gene 
-expression data.
+This object facilitates filtering of NHRs from a large matrix of gene 
+expression data, as it contains various gene identifiers 
+(e.g. HGNC symbol and ID, Entrez ID, and Ensembl ID) that might
+be obtained from different RNA-seq datasets.
 
 ```{r}
 receptLoss::nhrs
+```
+
+## Conclusions
+
+- `receptLoss` identifies genes that subclassify tumors 
+based on their RNA expression levels *relative to normal tissue*.
+The genes are ranked by their $\Delta\mu$ statistic which reflects
+a measure of the cleaness of separation (ie bimodality) 
+between the two tumor subgroups.
+
+- `receptLoss` provides biological context to the process of 
+tumor subclassification that is lacking in existing methods 
+that rely on solely on expression patterns in tumor tissue.
+
+    - Biologically-relevant tumor subclassification is 
+    important in tumor biomarker development and in the 
+    development of new anti-cancer therapeutics. 
+
+- `receptLoss` can be expanded for use with a variety of tumor types,
+biological data types (e.g. miRNA, protein expression), and even 
+non-biological data types where you have numeric data from two groups 
+(one normal group and one abnormal group) and where subgroup 
+identification is desired within the abnormal group
+
+- receptLoss is particularly useful when there are a large number of
+tumor samples (hundreds) relative to normal samples (dozens). We make the
+assumption that the normal expression data are distributed as a
+single Gaussian, which helps us draw statistical conclusions from small numbers.
+
+Please contact me at daniel.pique@med.einstein.yu.edu with any 
+suggestions, questions, or comments. Thank you!
+
+
+## Display this vignette
+
+```{r}
+vignette("receptLoss") 
+```
+
+## Session Info
+
+```{r}
+sessionInfo()
 ```
 

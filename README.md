@@ -25,12 +25,12 @@ It also includes a dataset consisting of all known NHRs:
 ## Installation
 
 ```R
-## Install the development version of receptLoss from GitHub
+## Install the development version of receptLoss from github
 devtools::install_github("dpique/receptLoss", 
     build_opts=c("--no-resave-data", "--no-manual"),
     build_vignettes=TRUE)
 
-## open the vignette locally
+## open the vignette
 vignette("receptLoss") 
 ```
 
