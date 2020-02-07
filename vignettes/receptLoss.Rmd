@@ -1,11 +1,22 @@
 ---
 title: "receptLoss"
-author: "Daniel Piqué"
-date: "`r Sys.Date()`"
+author: | 
+    |
+    | Daniel G. Piqué^1,2^, John Greally^1^, and Jessica Mar^3^
+    |
+    | Departments of ^1^Genetics & ^2^Systems & Computational Biology,
+    | Albert Einstein College of Medicine
+    | 
+    | ^3^Australian Institute for Bioengineering & Biotechnology,
+    | University of Queensland
+    |
+date: "`r format(Sys.Date(), format='%B %d, %Y')`"
 output:
-    rmdformats::readthedown:
-        highlight: kate
-        number_sections: true
+    html_document:
+        toc: true
+        toc_float:
+            collapsed: false
+            smooth_scroll: false
 vignette: >
     %\VignetteIndexEntry{receptLoss}
     %\VignetteEngine{knitr::rmarkdown}
@@ -26,33 +37,12 @@ knitr::opts_chunk$set(
 novel nuclear hormone receptors (NHRs) whose expression levels
 in cancers could serve as biomarkers for patient survival. 
 
-- There are ~50 NHRs, several of which (estrogen, progesterone, 
-and androgen receptor) are utilized as biomarkers in cancer.
-But could there be there more?
-
 - By utilizing both expression data from both tumor and normal tissue,
 `receptLoss` provides biological context to the process of 
 tumor subclassification that is lacking in existing methods 
-that rely solely on expression patterns in tumor tissue
-and neglect expression levels in normal tissue.
+that rely solely on expression patterns in tumor tissue.
 
-`receptLoss` is complementary to 
-[`oncomix`](https://bioconductor.org/packages/release/bioc/html/oncomix.html). Whereas `oncomix` detects genes that **gain** expression in subsets of tumors relative to normal 
-tissue, `receptLoss` detects genes that **lose** expression in subsets 
-of tumors relative to normal tissue.
-
-`receptLoss` is an R package that detects potentially novel tumor suppressor 
-(TS) genes using RNA expression data from tumor and adjacent normal tissue. 
-Most TS have been identified using DNA mutations, but no systematic approach
-exists for identifying novel TS based on patterns of RNA expression.
-
-`receptLoss` is focused on identifying candidate TS among the 
-nuclear hormone receptors, a family 
-of genes that has known roles in oncogenesis and whose loss 
-of expression has been correlated with poor outcomes in endometrial and 
-breast cancer. 
-
-`receptLoss` is complementary to 
+- `receptLoss` is complementary to 
 [`oncomix`](https://bioconductor.org/packages/release/bioc/html/oncomix.html). Whereas `oncomix` detects genes that **gain** expression in subsets of tumors relative to normal 
 tissue, `receptLoss` detects genes that **lose** expression in subsets 
 of tumors relative to normal tissue.
@@ -219,7 +209,7 @@ lost RNA expression relative to normal tissue.
 
 The question that inspired this package was whether the loss of 
 expression of any of the ~50 NHRs (beyond the well-known estrogen, 
-progesterone, and androgen receptors) in uterine tumors
+progesterone, and androgen NHRs) in uterine tumors
 was associated with differences in patient survival. 
 NHRs might not only serve as survival biomarkers but also as 
 [drug targets](
@@ -235,7 +225,7 @@ expression data, as it contains several commonly-used gene identifiers
 (e.g. HGNC symbol, HGNC ID, Entrez ID, and Ensembl ID) for the NHRs
 that might be found in different RNA expression datasets.
 
-The code for generating `nhrs` is available in ["data-raw/nhrs.R"](
+The source code for generating `nhrs` is available in ["data-raw/nhrs.R"](
 https://github.com/dpique/receptLoss/blob/master/data-raw/nhrs.R).
 
 ```{r}
@@ -250,17 +240,9 @@ The genes are ranked by their $\Delta\mu$ statistic which reflects
 a measure of the cleaness of separation (ie bimodality) 
 between the two tumor subgroups.
 
-- `receptLoss` provides biological context to the process of 
-tumor subclassification that is lacking in existing methods 
-that rely solely on expression patterns in tumor tissue
-and neglect expression levels in normal tissue.
-
-- Tumor subclassification is 
-important in tumor biomarker development and in the 
-development of new anti-cancer therapeutics. 
-
-- `receptLoss` can be expanded for use with a variety of tumor types,
-biological data types (e.g. miRNA, protein expression), and even 
+- `receptLoss` can be expanded for use with a variety of tumors,
+genes (e.g. to identify novel candidate tumor suppressors),
+biological data (e.g. miRNA, protein expression), and even 
 non-biological data types where you have numeric data from two groups 
 (one normal group and one abnormal group) and where subgroup 
 identification is desired within the abnormal group
