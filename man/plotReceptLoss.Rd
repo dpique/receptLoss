@@ -5,7 +5,7 @@
 \title{Plot histogram of genes with expression loss}
 \usage{
 plotReceptLoss(exprMatrNml, exprMatrTum, rldf, geneName, addToTitle = "",
-  clrs)
+clrs)
 }
 \arguments{
 \item{exprMatrNml}{A matrix of expression values from normal tissue.
@@ -33,9 +33,10 @@ returns an object of class `ggplot`
 This function allows you to plot histograms of tumor and adj normal data
 }
 \examples{
-exprMatrNml <- matrix(abs(rnorm(100, mean = 2)), nrow=10)
+exprMatrNml <- matrix(abs(rnorm(100, mean=2)), nrow=10)
 exprMatrTum <- matrix(abs(rnorm(100)), nrow=10)
-geneNames <- paste0(letters[1:nrow(exprMatrNml)], 1:nrow(exprMatrNml))
+geneNames <- paste0(letters[seq_len(nrow(exprMatrNml))],
+seq_len(nrow(exprMatrNml)))
 rownames(exprMatrNml) <- rownames(exprMatrTum) <- geneNames
 nSdBelow <- 2
 minPropPerGroup <- .2

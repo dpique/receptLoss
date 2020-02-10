@@ -45,8 +45,8 @@ subsets of tumors relative to normal tissue.
 ```{r eval=FALSE}
 ## Install the development version from GitHub
 devtools::install_github("dpique/receptLoss", 
-                          build_opts=c("--no-resave-data", "--no-manual"),
-                          build_vignettes=TRUE)
+                            build_opts=c("--no-resave-data", "--no-manual"),
+                            build_vignettes=TRUE)
 ```
 
 ## Usage
@@ -74,7 +74,8 @@ set.seed(100)
 
 exprMatrNml <- matrix(abs(rnorm(100, mean=2.5)), nrow=10) 
 exprMatrTum <- matrix(abs(rnorm(1000)), nrow=10)
-geneNames <- paste0(letters[1:nrow(exprMatrNml)], 1:nrow(exprMatrNml))
+geneNames <- paste0(letters[seq_len(nrow(exprMatrNml))], 
+                seq_len(nrow(exprMatrNml)))
 rownames(exprMatrNml) <- rownames(exprMatrTum) <- geneNames
 
 ```
@@ -182,7 +183,7 @@ Let's take the top-ranked gene and plot its distribution.
 ```{r}
 clrs <- c("#E78AC3", "#8DA0CB")
 plotReceptLoss(exprMatrNml, exprMatrTum, rl, 
-               geneName=as.character(rl[1,1]), clrs=clrs)
+            geneName=as.character(rl[1,1]), clrs=clrs)
 ```
 
 Here's what this graph is showing us: 

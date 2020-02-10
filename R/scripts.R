@@ -49,7 +49,8 @@ nSdBelowMean <- function(mn, sd, n){
 #' @examples
 #' exprMatrNml <- matrix(abs(rnorm(100, mean=2)), nrow=10)
 #' exprMatrTum <- matrix(abs(rnorm(100)), nrow=10)
-#' geneNames <- paste0(letters[1:nrow(exprMatrNml)], 1:nrow(exprMatrNml))
+#' geneNames <- paste0(letters[seq_len(nrow(exprMatrNml))],
+#' seq_len(nrow(exprMatrNml)))
 #' rownames(exprMatrNml) <- rownames(exprMatrTum) <- geneNames
 #' nSdBelow <- 2
 #' minPropPerGroup <- .2
@@ -112,7 +113,8 @@ receptLoss <- function(exprMatrNml, exprMatrTum, nSdBelow, minPropPerGroup){
 #' @examples
 #' exprMatrNml <- matrix(abs(rnorm(100, mean=2)), nrow=10)
 #' exprMatrTum <- matrix(abs(rnorm(100)), nrow=10)
-#' geneNames <- paste0(letters[1:nrow(exprMatrNml)], 1:nrow(exprMatrNml))
+#' geneNames <- paste0(letters[seq_len(nrow(exprMatrNml))],
+#' seq_len(nrow(exprMatrNml)))
 #' rownames(exprMatrNml) <- rownames(exprMatrTum) <- geneNames
 #' nSdBelow <- 2
 #' minPropPerGroup <- .2

@@ -26,27 +26,28 @@ proportion of samples that should be present in each of the two subgroups
 a nx7 matrix, with n equaling the number of genes. The columns are
 as follows:
 \itemize{
-  \item geneNm - the gene name
-  \item lowerBound - the lower bound, or the value `nSdBelow` the mean of
-  the normal tissue expression data.
-  \item propTumLessThBound - the proportion of tumor samples with
-  expression levels less than `lowerBound`
-  \item muAb - "mu above", the mean expression value of tumors greater than
-  (ie above) the `lowerBound`.
-  \item `muBl` - "mu below", the mean expression value of tumors less than
-  (ie below) the `lowerBound`.
-  \item `deltaMu` = `muAb`-`muBl`.
-  \item meetsMinPropPerGrp - a logical indicating whether the proportion
-  of samples in each group is greater than that set by `minPropPerGroup`.
+\item geneNm - the gene name
+\item lowerBound - the lower bound, or the value `nSdBelow` the mean of
+the normal tissue expression data.
+\item propTumLessThBound - the proportion of tumor samples with
+expression levels less than `lowerBound`
+\item muAb - "mu above", the mean expression value of tumors greater than
+(ie above) the `lowerBound`.
+\item `muBl` - "mu below", the mean expression value of tumors less than
+(ie below) the `lowerBound`.
+\item `deltaMu` - the difference between `muAb` and `muBl`.
+\item meetsMinPropPerGrp - a logical indicating whether the proportion
+of samples in each group is greater than that set by `minPropPerGroup`.
 }
 }
 \description{
 This function allows you to identify genes with loss of expression
 }
 \examples{
-exprMatrNml <- matrix(abs(rnorm(100, mean = 2)), nrow=10)
+exprMatrNml <- matrix(abs(rnorm(100, mean=2)), nrow=10)
 exprMatrTum <- matrix(abs(rnorm(100)), nrow=10)
-geneNames <- paste0(letters[1:nrow(exprMatrNml)], 1:nrow(exprMatrNml))
+geneNames <- paste0(letters[seq_len(nrow(exprMatrNml))],
+seq_len(nrow(exprMatrNml)))
 rownames(exprMatrNml) <- rownames(exprMatrTum) <- geneNames
 nSdBelow <- 2
 minPropPerGroup <- .2
