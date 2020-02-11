@@ -1,3 +1,37 @@
+#' Convert SummarizedExperiment or Dataframe to Matrix
+#'
+#' This internal function converts SummarizedExperiment objects and dataframes
+#' (both S3 and S4) to matrices of expression values. Used within oncomix
+#' functions to convert all matrix-like objects to the matrix class.
+#'
+#' @param m Can be a matrix, a data.frame, a DataFrame, or
+#' SummarizedExperiment object.
+#' @keywords internal
+#' @importFrom SummarizedExperiment assay
+#' @return A matrix of expression values
+#' @keywords internal
+#' @examples
+#' m <- as.data.frame(matrix(data=rgamma(n=150, shape=2, rate=2),
+#' nrow=10, ncol=15))
+#' m <- toMatrix(m)
+
+toMatrix <- function(m){
+    if(is.matrix(m)){
+        return(m)
+    }
+    if(class(m
+            ) == "SummarizedExperiment"){
+        m <- assay(m)
+        return(m)
+    }
+    if(is.data.frame(m) | class(m
+            ) == "DataFrame"){
+        m <- as.matrix(m)
+        return(m)
+    }
+}
+
+
 #' Calculate value N std dev away from mean
 #'
 #' This function allows you to identify genes with loss of expression
@@ -58,6 +92,9 @@ nSdBelowMean <- function(mn, sd, n){
 #' head(rl)
 
 receptLoss <- function(exprMatrNml, exprMatrTum, nSdBelow, minPropPerGroup){
+    exprMatrNml <- toMatrix(exprMatrNml)
+    exprMatrTum <- toMatrix(exprMatrTum)
+
     ## Remove warnings from devtools::check()
     propTumLessThBound <- NULL
     meetsMinPropPerGrp <- NULL
@@ -124,19 +161,17 @@ receptLoss <- function(exprMatrNml, exprMatrTum, nSdBelow, minPropPerGroup){
 
 plotReceptLoss <- function(exprMatrNml, exprMatrTum, rldf,
                             geneName, addToTitle="", clrs) {
+    exprMatrNml <- toMatrix(exprMatrNml)
+    exprMatrTum <- toMatrix(exprMatrTum)
     type <- NULL
     propTumLessThBound <- NULL
     meetsMinPropPerGrp <- NULL
     ..density.. <- NULL
-
-    normal <- exprMatrNml[geneName,] %>%
-        data.frame() %>%
+    normal <- exprMatrNml[geneName,] %>% data.frame() %>%
         dplyr::mutate(type="normal")
-    tumor <- exprMatrTum[geneName,] %>%
-        data.frame() %>%
+    tumor <- exprMatrTum[geneName,] %>% data.frame() %>%
         dplyr::mutate(type="tumor")
-    tidyDf <- rbind(normal, tumor) %>%
-        dplyr::as_tibble() %>%
+    tidyDf <- rbind(normal, tumor) %>% dplyr::as_tibble() %>%
         dplyr::rename(expr=".")
     rldf.sub <- rldf[rldf[, "geneNm"] == geneName,]
     p1 <- ggplot(tidyDf, aes(x=expr, color=as.factor(type),

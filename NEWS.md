@@ -1,3 +1,12 @@
+
+receptLoss v0.99.1 (2020-02-11)
+==============
+
+* As per Martin Morgan's feedback from BioConductor review, 
+added a function, 'toMatrix', to accept SummarizedExperiment 
+and other matrix-like objects
+
+
 receptLoss v0.99.0 (2020-02-05)
 ==============
 
