@@ -10,6 +10,7 @@
 #' @importFrom SummarizedExperiment assay
 #' @return A matrix of expression values
 #' @keywords internal
+#' @export
 #' @examples
 #' m <- as.data.frame(matrix(data=rgamma(n=150, shape=2, rate=2),
 #' nrow=10, ncol=15))

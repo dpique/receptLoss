@@ -1,4 +1,10 @@
 
+receptLoss v0.99.2 (2020-02-12)
+==============
+
+* exported 'toMatrix' function to fix R CMD check error.
+
+
 receptLoss v0.99.1 (2020-02-11)
 ==============
 

@@ -2,6 +2,7 @@
 
 export(plotReceptLoss)
 export(receptLoss)
+export(toMatrix)
 import(ggplot2)
 import(stats)
 import(tidyr)
