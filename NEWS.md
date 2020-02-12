@@ -1,4 +1,10 @@
 
+receptLoss v0.99.3 (2020-02-12)
+==============
+
+* removed .DS_Store and .Rproj files from git repo
+
+
 receptLoss v0.99.2 (2020-02-12)
 ==============
 
