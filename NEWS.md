@@ -1,3 +1,9 @@
+receptLoss v0.99.4 (2020-02-12)
+==============
+
+* removed .Rproj files from git repo
+
+* Updated gitignore file to include .Rproj files
 
 receptLoss v0.99.3 (2020-02-12)
 ==============
