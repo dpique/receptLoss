@@ -5,7 +5,7 @@
 \title{Plot histogram of genes with expression loss}
 \usage{
 plotReceptLoss(exprMatrNml, exprMatrTum, rldf, geneName, addToTitle = "",
-    clrs)
+clrs)
 }
 \arguments{
 \item{exprMatrNml}{A matrix of expression values from normal tissue.
