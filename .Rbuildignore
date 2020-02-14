@@ -1,4 +1,5 @@
 ^.*\.Rproj$
+receptLoss.Rproj
 ^\.Rproj\.user$
 ^data-raw$
 ^.Rhistory
