@@ -4,23 +4,27 @@
 \alias{toMatrix}
 \title{Convert SummarizedExperiment or Dataframe to Matrix}
 \usage{
-toMatrix(m)
+toMatrix(m, rwnms = NA)
 }
 \arguments{
 \item{m}{Can be a matrix, a data.frame, a DataFrame, or
 SummarizedExperiment object.}
+
+\item{rwnms}{the rownames of the object. If NA (the default),
+assumes that the matrix-like object already has rownames, which
+in this case do not need to be supplied separately.}
 }
 \value{
 A matrix of expression values
 }
 \description{
-This internal function converts SummarizedExperiment objects and dataframes
-(both S3 and S4) to matrices of expression values. Used within oncomix
+This function converts SummarizedExperiment objects and dataframes
+(both S3 and S4) to matrices of expression values. Used within receptLoss
 functions to convert all matrix-like objects to the matrix class.
 }
 \examples{
-m <- as.data.frame(matrix(data=rgamma(n=150, shape=2, rate=2),
-nrow=10, ncol=15))
-m <- toMatrix(m)
+m <- as.data.frame(matrix(data=rgamma(n=100, shape=3, rate=2),
+nrow=10, ncol=10))
+m <- toMatrix(m, rwnms=NA)
 }
 \keyword{internal}

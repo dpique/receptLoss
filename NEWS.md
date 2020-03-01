@@ -1,9 +1,13 @@
-receptLoss v0.99.4 (2020-02-12)
+receptLoss v0.99.6 (2020-03-01)
 ==============
 
-* removed .Rproj files from git repo
+* Updated the 'toMatrix' function in scripts.R, allowing it to accept the
+RangedSummarizedExperiment class, and added option for specifying rownames
 
-* Updated gitignore file to include .Rproj files
+receptLoss v0.99.5 (2020-02-14)
+==============
+
+* update .Rbuildignore
 
 
 receptLoss v0.99.4 (2020-02-12)
