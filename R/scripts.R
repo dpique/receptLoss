@@ -36,8 +36,8 @@ toMatrix <- function(m, rwnms=NA){
             ) %in% c("SummarizedExperiment", "RangedSummarizedExperiment"))){
         m <- assay(m)
     }
-    if(is.data.frame(m) | class(m
-            ) == "DataFrame"){
+    if(is.data.frame(m) | any(class(m
+            ) %in% "DataFrame")){
         m <- as.matrix(m)
     }
     if(!is.na(rwnms)){

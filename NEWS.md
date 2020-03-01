@@ -1,3 +1,10 @@
+receptLoss v0.99.8 (2020-03-01)
+==============
+
+* Updated bug in 'toMatrix' function in scripts.R, allowing it to accept the
+objects with multiple classes
+
+
 receptLoss v0.99.6 (2020-03-01)
 ==============
 
