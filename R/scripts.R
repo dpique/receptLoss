@@ -32,8 +32,8 @@ toMatrix <- function(m, rwnms=NA){
         }
     }
 
-    if(class(m
-            ) %in% c("SummarizedExperiment", "RangedSummarizedExperiment")){
+    if(any(class(m
+            ) %in% c("SummarizedExperiment", "RangedSummarizedExperiment"))){
         m <- assay(m)
     }
     if(is.data.frame(m) | class(m
