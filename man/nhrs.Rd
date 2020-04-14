@@ -4,7 +4,8 @@
 \name{nhrs}
 \alias{nhrs}
 \title{Table of Nuclear Hormone Receptors (NHRs)}
-\format{A tibble with 54 rows and 6 variables:
+\format{
+A tibble with 54 rows and 6 variables:
 \describe{
 \item{hgnc_symbol}{the HUGO gene nomenclature committee (HGNC) symbol
 (letters and numbers, ex. THRB)}
@@ -17,7 +18,8 @@
 starts with ENSG)}
 \item{synonyms}{words or gene symbols in the literature that refer to
 the same gene}
-}}
+}
+}
 \source{
 \url{
 http://www.guidetopharmacology.org/DATA/targets_and_families.csv}

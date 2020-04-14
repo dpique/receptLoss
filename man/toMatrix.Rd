@@ -25,6 +25,6 @@ functions to convert all matrix-like objects to the matrix class.
 \examples{
 m <- as.data.frame(matrix(data=rgamma(n=100, shape=3, rate=2),
 nrow=10, ncol=10))
-m <- toMatrix(m, rwnms=NA)
+m <- toMatrix(m)
 }
 \keyword{internal}
