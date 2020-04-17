@@ -187,9 +187,9 @@ clrs <- c("#E78AC3", "#8DA0CB")
 
 tryCatch({plotReceptLoss(exprMatrNml, exprMatrTum, rl, 
     geneName=as.character(rl[1,1]), clrs=clrs)}, 
-    warning=function(){
+    warning=function(cond){
         knitr::include_graphics("rl_fig.png")
-    }, error=function(){
+    }, error=function(cond){
         knitr::include_graphics("rl_fig.png")
     }
 )

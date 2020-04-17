@@ -7,4 +7,4 @@ inst/doc
 .DS_Store
 doc
 Meta
-R/rmv_whitespace_man.R
+rmv_whitespace_man.R
