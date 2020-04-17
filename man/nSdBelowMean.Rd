@@ -4,12 +4,12 @@
 \alias{nSdBelowMean}
 \title{Calculate value N std dev away from mean}
 \usage{
-nSdBelowMean(mn, sd, n)
+nSdBelowMean(mn, stdv, n)
 }
 \arguments{
 \item{mn}{Mean of distribution}
 
-\item{sd}{std dev of distribution}
+\item{stdv}{std dev of distribution}
 
 \item{n}{number of std dev below mean to calculate}
 }

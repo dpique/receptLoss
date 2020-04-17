@@ -51,13 +51,13 @@ toMatrix <- function(m, rwnms=NA){
 #'
 #' This function allows you to identify genes with loss of expression
 #' @param mn Mean of distribution
-#' @param sd std dev of distribution
+#' @param stdv std dev of distribution
 #' @param n number of std dev below mean to calculate
 #' @return the value `n` standard deviations below the mean `mn`
 #' @keywords internal
 
-nSdBelowMean <- function(mn, sd, n){
-    nsdblw <- mn - n*sd
+nSdBelowMean <- function(mn, stdv, n){
+    nsdblw <- mn - n*stdv
     return(nsdblw)
 }
 
@@ -93,7 +93,7 @@ nSdBelowMean <- function(mn, sd, n){
 #' }
 #' @keywords gene expression, subgroups
 #' @importFrom magrittr "%>%"
-#' @import tidyr tidyverse stats
+#' @importFrom dplyr tibble mutate arrange
 #' @export
 #' @examples
 #' exprMatrNml <- matrix(abs(rnorm(100, mean=2)), nrow=10)
@@ -116,7 +116,7 @@ receptLoss <- function(exprMatrNml, exprMatrTum, nSdBelow, minPropPerGroup){
 
     ## Identify boundary nSdBelow the mean of adj. normal tissue
     boundAll <- apply(exprMatrNml, 1, function(x){
-        nSdBelowMean(mean(x), sd(x), nSdBelow)
+        nSdBelowMean(mean(x), stats::sd(x), nSdBelow)
         }
     )
 
@@ -160,7 +160,7 @@ receptLoss <- function(exprMatrNml, exprMatrTum, nSdBelow, minPropPerGroup){
 #' @return returns an object of class `ggplot`
 #' @keywords gene expression, subgroups, visualization
 #' @importFrom magrittr "%>%"
-#' @import tidyr ggplot2 tidyverse stats
+#' @import tidyr ggplot2 dplyr
 #' @export
 #' @examples
 #' exprMatrNml <- matrix(abs(rnorm(100, mean=2)), nrow=10)
@@ -205,8 +205,8 @@ plotReceptLoss <- function(exprMatrNml, exprMatrTum, rldf,
         axis.ticks.y=element_blank(),
         axis.line.y=element_blank(),
         legend.position="none",
-        text=element_text(size=20, color="black"),
-        plot.title=element_text(face="italic")
+        text=element_text(size=20, color="black")#,
+        #plot.title=element_text(face="italic")
     ) +
     xlim(c(-0.1, 0.2 + max(exprMatrTum, exprMatrNml))) +
     ggtitle(paste0(geneName, addToTitle)) +
@@ -217,7 +217,7 @@ plotReceptLoss <- function(exprMatrNml, exprMatrTum, rldf,
     stat_function(
         fun="dnorm", colour=clrs[1],
         args=list(mean=mean(normal$.),
-                    sd=sd(normal$.)),
+                    sd=stats::sd(normal$.)),
         linetype="dashed", size=1.5
     )
     print(p1)

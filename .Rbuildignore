@@ -7,3 +7,4 @@ receptLoss.Rproj
 ^\.travis\.yml$
 ^doc$
 ^Meta$
+man/rmv_whitespace_man.R

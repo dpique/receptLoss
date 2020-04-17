@@ -1,7 +1,7 @@
 Package: receptLoss
 Type: Package
 Title: Unsupervised Identification of Genes with Expression Loss in Subsets of Tumors
-Version: 0.99.9
+Version: 0.99.10
 Author: Daniel Pique, John Greally, Jessica Mar
 Maintainer: Daniel Pique <daniel.pique@med.einstein.yu.edu>
 Description: receptLoss identifies genes whose expression is lost 
@@ -20,10 +20,8 @@ RoxygenNote: 7.1.0
 Imports: 
     dplyr,
     ggplot2,
-    tidyverse,
     magrittr,
     tidyr,
-    stats,
     SummarizedExperiment
 Suggests: 
     knitr,

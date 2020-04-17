@@ -12,7 +12,6 @@ vignette: >
     %\VignetteIndexEntry{receptLoss}
     %\VignetteEngine{knitr::rmarkdown}
     %\VignetteEncoding{UTF-8}
-    %\VignetteDepends{tidyverse}
 ---
 
 ```{r setup, include=FALSE}
@@ -66,7 +65,8 @@ and the other from normal tissue.
 
 ```{r warning=FALSE, message=FALSE}
 library(receptLoss)
-library(tidyverse)
+library(dplyr)
+library(ggplot2)
 
 set.seed(100)
 
@@ -184,8 +184,15 @@ proportion of tumors in each group to permit useful tumor subgrouping.
 Let's take the top-ranked gene and plot its distribution.
 ```{r}
 clrs <- c("#E78AC3", "#8DA0CB")
-plotReceptLoss(exprMatrNml, exprMatrTum, rl, 
-            geneName=as.character(rl[1,1]), clrs=clrs)
+
+tryCatch({plotReceptLoss(exprMatrNml, exprMatrTum, rl, 
+    geneName=as.character(rl[1,1]), clrs=clrs)}, 
+    warning=function(){
+        knitr::include_graphics("rl_fig.png")
+    }, error=function(){
+        knitr::include_graphics("rl_fig.png")
+    }
+)
 ```
 
 Here's what this graph is showing us: 
